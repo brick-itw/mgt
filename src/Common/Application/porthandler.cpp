@@ -1,6 +1,7 @@
 #include "Common/Application/porthandler.h"
 #include "Platforms/Interfaces/ISystem.h"
 #include "Common/Utils/byteorder.h"
+#include "Common/Loggers/LogEvents.h"
 
 #define LEN_HEADER_SIZE  2
 
@@ -8,25 +9,22 @@ static DWORD dwHandlerID = 0;
 
 TMgtPortHandler::TMgtPortHandler(IConnection* plink) : pLink(plink), CurrentChunk(), id(++dwHandlerID)
 {
+  TSystem::Instance().LogData(TMgtLinkConnected(id));
 }
 
 TMgtPortHandler::~TMgtPortHandler()
 {
-  if(pLink)
-    delete pLink;
+  TSystem::Instance().LogData(TMgtLinkDisconnected(id));
+  delete pLink;
 }
 
 BOOLEAN TMgtPortHandler::IsConnected()
 {
-  if(!pLink)
-    return FALSE;
   return (pLink->GetState() == CST_ONLINE);
 }
 
 BOOLEAN TMgtPortHandler::IsLinkBroken()
 {
-  if(!pLink)
-    return FALSE;
   return (pLink->GetState() == CST_BROKEN);
 }
 

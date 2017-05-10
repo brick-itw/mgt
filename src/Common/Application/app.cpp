@@ -49,13 +49,11 @@ TMgtApplication::~TMgtApplication()
 
 void TMgtApplication::AddIncomingRequest(DWORD dwPortHandlerID, const T_Trivial_TLV_Buffer& Request)
 {
+
+
   ActiveTasks.push_back(new TMgtTask(dwPortHandlerID, Request));
 }
 
-void TMgtApplication::HandleNewTask(TMgtTask* pTask)
-{
-  pTask;
-}
 
 void TMgtApplication::HandleExpiredTask(TMgtTask* pTask)
 {
@@ -74,14 +72,15 @@ void TMgtApplication::RemoveTaskForBrokenLinkID(TMgtTask* pTask)
 void TMgtApplication::RemoveTasksForBrokenLinkID(DWORD dwID)
 {
   for(std::list<TMgtTask*>::iterator it = ActiveTasks.begin();  it != ActiveTasks.end(); ++it)
-    if(*it->GetID() == dwID)
+    if(*it->GetPortHandlerID() == dwID)
       RemoveTaskForBrokenLink(*it);
 }
 
-void TMgtApplication::CheckActiveTasks()
+void TMgtApplication::ProcessTasks()
 {
   for(std::list<TMgtTask*>::iterator it = ActiveTasks.begin();  it != ActiveTasks.end();)
   {
+    *it->Process();
     if(*it->Complete())
     {
       delete *it;
@@ -91,9 +90,6 @@ void TMgtApplication::CheckActiveTasks()
     {
       if((*it->ReadyToDeliver())
         DeliverTaskResult(*it);
-      else
-      if(*it->JustArrived())
-        HandleNewTask(*it);
       else
       if(*it->Expired())
         HandleExpiredTask(*it);
@@ -112,14 +108,14 @@ void TMgtApplication::CheckRequestsOnActivePorts()
   {
     if(it->second->IsLinkBroken())
     {
-      RemoveTasksForBrokenLinkID(it->second->GetID());
+      RemoveTasksForBrokenLinkID(it->second->GetPortHandlerID());
       delete it->second;
       it = ActivePorts.erase(it);
     }
     else
     {
       if(it->second->GetIncomingRequest(Request))
-        AddIncomingRequest(it->second->GetID(), Request);
+        AddIncomingRequest(it->second->GetPortHandlerID(), Request);
       ++it;
     }
   }
@@ -127,7 +123,7 @@ void TMgtApplication::CheckRequestsOnActivePorts()
 
 void TMgtApplication::AddNewPortHandler(TMgtPortHandler* p)
 {
-  ActivePorts[p->GetID()] = p;
+  ActivePorts[p->GetPortHandlerID()] = p;
 }
 
 void TMgtApplication::Run()
@@ -151,7 +147,7 @@ void TMgtApplication::Run()
     }
 
     CheckRequestsOnActivePorts();
-    CheckActiveTasks();
+    ProcessTasks();
   }
 }
 

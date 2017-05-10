@@ -29,8 +29,8 @@ enum Module
   MODULE_CONNECTION              = 14,
   MODULE_OS_WIN                  = 15,
   MODULE_OS_LIN                  = 16,
-  MODULE_OS_PROLIN		           = 17,
-  MODULE_EMV			               = 18,
+  MODULE_OS_PROLIN	         = 17,
+  MODULE_EMV		         = 18,
   MODULE_LOGIC                   = 19,
   MODULE_COMMAND_ENTER_CARD      = 20,
   MODULE_HTTP                    = 21,
@@ -40,6 +40,8 @@ enum Module
   MODULE_CHECK_FILES             = 25,
   MODULE_COMMAND_LOAD_KEY        = 26,
   MODULE_COMMAND_READ_CARD       = 27,
+
+  MODULE_MGT_TASK                = 50
 };
 
 #endif // _UPOS_ERROR_MODULES_H

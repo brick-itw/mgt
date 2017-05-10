@@ -223,22 +223,22 @@ void T_BinaryData::FromAscii(const std::string& s0)
 	delete[] p;
 }
 
-WORD T_BinaryData::MsbWord(DWORD offs)
+WORD T_BinaryData::MsbWord(DWORD offs) const
 {
 	return MSB_TO_WORD(pData + offs);
 }
 
-WORD T_BinaryData::LsbWord(DWORD offs)
+WORD T_BinaryData::LsbWord(DWORD offs) const
 {
 	return LSB_TO_WORD(pData + offs);
 }
 
-DWORD T_BinaryData::MsbDword(DWORD offs)
+DWORD T_BinaryData::MsbDword(DWORD offs) const
 {
 	return MSB_TO_DWORD(pData + offs);
 }
 
-DWORD T_BinaryData::LsbDword(DWORD offs)
+DWORD T_BinaryData::LsbDword(DWORD offs) const
 {
 	return LSB_TO_DWORD(pData + offs);
 }

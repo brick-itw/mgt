@@ -58,10 +58,10 @@ public:
 	std::string ToAsciiTrimF() const;
 	void FromAscii(const std::string& s);
 
-	WORD MsbWord(DWORD offs);
-	WORD LsbWord(DWORD offs);
-	DWORD MsbDword(DWORD offs);
-	DWORD LsbDword(DWORD offs);
+	WORD MsbWord(DWORD offs=0) const;
+	WORD LsbWord(DWORD offs=0) const;
+	DWORD MsbDword(DWORD offs=0) const;
+	DWORD LsbDword(DWORD offs=0) const;
 
 	DWORD ToInt(DWORD offs, DWORD len);
 

@@ -70,7 +70,6 @@ public:
 	virtual TLVLENTYPE AddTagData(TAGTYPE tag, const unsigned char* p, TLVLENTYPE len, TLVADDMODE mode = TLV_REPLACE);
 
 	TLVLENTYPE AddTagData(TAGTYPE tag, const T_BinaryData& data, TLVADDMODE mode = TLV_REPLACE);
-
 	TLVLENTYPE AddTagData(TAGTYPE tag, const std::string& s, TLVADDMODE mode = TLV_REPLACE);
 
 	TLVLENTYPE AddTagDWORD(TAGTYPE tag, unsigned long val, TLVADDMODE mode = TLV_REPLACE);

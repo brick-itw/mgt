@@ -52,5 +52,29 @@ class TNoTCPip : public TNoDataPrintableEvent{
 public: TNoTCPip() : TNoDataPrintableEvent(12, "No TCP/IP interface available"){};
 };
 
+class TMgtLinkConnected : public TPrintableLogEvent{
+public: TMgtLinkConnected(DWORD id) : TPrintableLogEvent(13, IntToStdString(id), LMT_ASCII, "MGT incoming link connected"){};
+};
+
+class TMgtLinkDisconnected : public TPrintableLogEvent{
+public: TMgtLinkDisconnected(DWORD id) : TPrintableLogEvent(14, IntToStdString(id), LMT_ASCII, "MGT incoming link disconnected"){};
+};
+
+class TMgtTaskCreated : public TPrintableLogEvent{
+public: TMgtTaskCreated(DWORD id, DWORD port_id, DWORD amt, DWORD op_type, const std::string& req_id) 
+          : TPrintableLogEvent(15, std::string("TaskID=") + IntToStdString(id) + 
+                                   ";PortID="+ IntToStdString(port_id) + 
+                                   ";Amount="+ IntToStdString(amt) + 
+                                   ";ReqID=" + req_id + 
+                                   ";OpType=" + IntToStdString(op_type), 
+                               LMT_ASCII, "MGT task created"){};
+};
+
+class TMgtTaskDestroyed : public TPrintableLogEvent{
+public: TMgtTaskDestroyed(DWORD id, DWORD result_code)
+          : TPrintableLogEvent(16, std::string("TaskID=") + IntToStdString(id) + ";Result=" + IntToStdString(result_code), 
+                               LMT_ASCII, "MGT task destroyed"){};
+};
+
 #endif
 
