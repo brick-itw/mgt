@@ -55,6 +55,7 @@ inline bool IS_ALPHA_(unsigned char c)
 inline unsigned char UPPER_CASE_(unsigned char c)
 { return ((c>='a') && (c<='z')) ? (c-0x20) : c; };
 
+int IsPemChar(char c);
 
 int  FindBufChar(void* buf, unsigned char c, int count);
 int  FindBufStr (void* buf, int count, const void* subst, int scnt);

@@ -126,7 +126,7 @@ public:
 	TLVLENTYPE GetDataLength() const;
 	TLVLENTYPE GetFullLength() const;
 	TLVLENTYPE GetTagOffset() const;
-	unsigned char* GetDataPtr();
+	unsigned char* GetDataPtr() const;
 	const T_TLV_Buffer& GetBuffer() const;
 
 

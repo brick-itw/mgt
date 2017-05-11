@@ -32,9 +32,14 @@ unsigned char asctobin[129] = {
 	0061,0062,0063,0200,0200,0200,0200,0200
 };
 
-const char* bintoasc = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const char* bintoasc = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
 static void encode(unsigned char[4], unsigned char[3], int);
+
+int IsPemChar(char c)
+{
+  return (strchr(bintoasc, c) != 0);
+}
 
 int ENC(int c)
 {

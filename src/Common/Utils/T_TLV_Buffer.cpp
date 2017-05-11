@@ -484,7 +484,7 @@ TLVLENTYPE T_TLV_Item::GetTagOffset() const
 	return TagOffset;
 }
 
-unsigned char* T_TLV_Item::GetDataPtr()
+unsigned char* T_TLV_Item::GetDataPtr() const
 {
 	return Buffer.GetData();
 }
